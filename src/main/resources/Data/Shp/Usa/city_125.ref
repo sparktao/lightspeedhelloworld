@@ -1,0 +1,3 @@
+ILcdModelReference.class = com.luciad.reference.TLcdGeodeticReference
+TLcdGeodeticReference.geodeticDatum.ILcdGeodeticDatumFactory.class = com.luciad.geodesy.TLcdNIMA8350GeodeticDatumFactory
+TLcdGeodeticReference.geodeticDatum.TLcdNIMA8350GeodeticDatumFactory.geodeticDatumName = WGS84

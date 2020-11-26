@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.hexagonsi</groupId>
+    <artifactId>lightspeed-helloworld</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <luciad.version>2020.1</luciad.version>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.luciad</groupId>
+            <artifactId>lcd_lightspeed</artifactId>
+            <version>${luciad.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.hexagonsi</groupId>
+            <artifactId>luciad_development_license</artifactId>
+            <version>${luciad.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.luciad</groupId>
+            <artifactId>lcd_core_samples</artifactId>
+            <version>${luciad.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.luciad</groupId>
+            <artifactId>lcd_lightspeed_samples</artifactId>
+            <version>${luciad.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.luciad</groupId>
+            <artifactId>lcd_sqlite</artifactId>
+            <version>${luciad.version}</version>
+        </dependency>
+
+    </dependencies>
+
+    <repositories>
+        <repository>
+            <id>luciad-lightspeed</id>
+            <url>http://10.0.11.150:8081/repository/luciad-lightspeed/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>luciad-lightspeed</id>
+            <url>http://10.0.11.150:8081/repository/luciad-lightspeed/</url>
+        </repository>
+    </distributionManagement>
+
+    <build>
+        <plugins>
+            <!-- 打包jar文件时，配置manifest文件，加入lib包的jar依赖 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <mainClass>org.hexagonsi.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <!-- 拷贝依赖的jar包到lib目录 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>
+                                ${project.build.directory}/lib
+                            </outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
